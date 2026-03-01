@@ -1,0 +1,23 @@
+# Ignore macOS system files
+.DS_Store
+
+# Node modules (if any projects use Node)
+node_modules/
+
+# Python virtualenv
+venv/
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Build artifacts
+dist/
+build/
+
+# IDE/editor folders
+.vscode/
+.idea/
+
+# Other common ignores
+*.swp
