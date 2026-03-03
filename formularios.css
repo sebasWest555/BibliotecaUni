@@ -1,0 +1,80 @@
+/* --- ESTILOS PARA FORMULARIOS DE LIBROS (Alta / Modificar / Eliminar) --- */
+.book-form {
+    max-width: 700px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.book-form label {
+    grid-column: span 2;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 6px;
+}
+
+.book-form input[type="text"],
+.book-form input[type="number"],
+.book-form textarea {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 100%;
+}
+
+.book-form textarea { 
+    resize: vertical; 
+}
+
+.book-form input[name="copias"] { 
+    width: 120px; 
+}
+
+.form-actions {
+    grid-column: span 2;
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.btn-gray {
+    background-color: #6c757d; /* gris neutro */
+    color: #fff;
+}
+
+.btn-gray:hover {
+    opacity: 0.9;
+}
+
+.search-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.search-form input[type="text"] { 
+    max-width: 320px; 
+}
+
+.delete-result {
+    max-width: 700px;
+    background: #fafafa;
+    border-radius: 6px;
+}
+
+@media (max-width: 800px) {
+    .book-form { 
+        grid-template-columns: 1fr; 
+    }
+    .book-form label { 
+        grid-column: auto; 
+    }
+    .form-actions { 
+        justify-content: flex-start; 
+    }
+    .sidebar { 
+        display: none; 
+    }
+}
