@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca - Nosotros</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+    <header class="top-bar">
+        <h1>BIBLIOTECA UNIVERSITARIA</h1>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <nav>
+                <a href="index.html">Inicio</a>
+                <a href="prestamos.html">Préstamos</a>
+                <a href="devoluciones.html">Devoluciones</a>
+                <a href="reportes.html">Reportes</a>
+                <a href="alta.html">Alta de Libros</a>
+                <a href="modificar.html">Modificar Libro</a>
+                <a href="eliminar.html">Eliminar Libro</a>
+                <a href="cubiculos.html">Cubículos</a>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <h1 style="margin-bottom: 30px;">Identidad Institucional</h1>
+
+            <section id="mision" class="info-section">
+                <h2>Nuestra Misión</h2>
+                <p>Facilitar el acceso a recursos de información bibliográfica de calidad, apoyando la docencia, el aprendizaje y la investigación, contribuyendo así a la formación integral de nuestra comunidad universitaria.</p>
+            </section>
+
+            <section id="vision" class="info-section">
+                <h2>Nuestra Visión</h2>
+                <p>Ser reconocidos como un centro de recursos para el aprendizaje y la investigación de excelencia, integrando tecnología de vanguardia y servicios innovadores que respondan a las necesidades cambiantes de la sociedad del conocimiento.</p>
+            </section>
+
+            <section id="valores" class="info-section">
+                <h2>Nuestros Valores</h2>
+                <ul class="valores-list">
+                    <li>Compromiso con el servicio</li>
+                    <li>Responsabilidad social</li>
+                    <li>Innovación constante</li>
+                    <li>Ética profesional</li>
+                    <li>Trabajo en equipo</li>
+                </ul>
+            </section>
+        </main>
+
+        <img src="../SEBASWEST.png" alt="Logo Sebas West Corporation" class="sebas-west-corner">
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-text">
+                <p>SEBAS ₩€$₺ CORPORATION</p>
+                <p>© 2026 - Todos los derechos reservados</p>
+                <nav class="footer-links">
+                    <a href="nosotros.html">Sobre Nosotros</a>
+                    <span class="separator">|</span>
+                    <a href="nosotros.html#mision">Misión y Visión</a>
+                    <span class="separator">|</span>
+                    <a href="nosotros.html#valores">Nuestros Valores</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+
+            /* Aparición escalonada de las secciones con slideDown */
+            $(".info-section").each(function (i) {
+                $(this).hide().delay(i * 150).slideDown(400);
+            });
+
+            /* Hover en items de valores */
+            $(document).on("mouseenter", ".valores-list li", function () {
+                $(this).stop(true).animate({ paddingLeft: "16px" }, 150);
+            }).on("mouseleave", ".valores-list li", function () {
+                $(this).stop(true).animate({ paddingLeft: "0px" }, 150);
+            });
+
+        });
+    </script>
+
+</body>
+</html>

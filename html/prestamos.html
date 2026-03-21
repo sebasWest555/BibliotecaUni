@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca - Préstamos</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+    <header class="top-bar">
+        <h1>BIBLIOTECA UNIVERSITARIA</h1>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <nav>
+                <a href="index.html">Inicio</a>
+                <a href="prestamos.html" class="active">Préstamos</a>
+                <a href="devoluciones.html">Devoluciones</a>
+                <a href="reportes.html">Reportes</a>
+                <a href="alta.html">Alta de Libros</a>
+                <a href="modificar.html">Modificar Libro</a>
+                <a href="eliminar.html">Eliminar Libro</a>
+                <a href="cubiculos.html">Cubículos</a>
+            </nav>
+        </aside>
+
+        <main class="content">
+
+            <div class="search-bar-top">
+                <input type="text" id="inputBuscarPrestamos" placeholder="Buscar libro...">
+                <button class="btn btn-blue" id="btnBuscar">BUSCAR</button>
+            </div>
+
+            <h2>Catálogo de Libros</h2>
+
+            <p class="contador-resultados" id="contadorResultados"></p>
+
+            <!-- Mensaje de éxito al prestar -->
+            <div class="mensaje-exito" id="mensajeExito" style="display:none;"></div>
+
+            <!-- Lista renderizada dinámicamente por biblioteca.js -->
+            <div class="book-list" id="bookList"></div>
+
+        </main>
+
+        <img src="../SEBASWEST.png" alt="Logo Sebas West Corporation" class="sebas-west-corner">
+    </div>
+
+    <!-- MODAL DE PRÉSTAMO -->
+    <div class="modal-overlay" id="modalPrestamo">
+        <div class="modal-box">
+            <h3>Registrar Préstamo</h3>
+            <p class="modal-libro-titulo" id="modalPrestamoTitulo"></p>
+            <input type="hidden" id="modalPrestamoISBN">
+
+            <label>Matrícula del Alumno</label>
+            <input type="text" id="inputMatriculaPrestamo" placeholder="Ej. A012345">
+            <span class="campo-error" id="errorMatriculaPrestamo"></span>
+
+            <div class="modal-btns">
+                <button class="btn btn-green" id="btnConfirmarPrestamo">CONFIRMAR</button>
+                <button class="btn btn-gray" id="btnCerrarModalPrestamo">CANCELAR</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-text">
+                <p>SEBAS ₩€$₺ CORPORATION</p>
+                <p>© 2026 - Todos los derechos reservados</p>
+                <nav class="footer-links">
+                    <a href="nosotros.html">Sobre Nosotros</a>
+                    <span class="separator">|</span>
+                    <a href="nosotros.html#mision">Misión y Visión</a>
+                    <span class="separator">|</span>
+                    <a href="nosotros.html#valores">Nuestros Valores</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="../js/biblioteca.js"></script>
+
+</body>
+</html>

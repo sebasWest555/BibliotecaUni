@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca - Cubículos</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+    <header class="top-bar">
+        <h1>BIBLIOTECA UNIVERSITARIA</h1>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <nav>
+                <a href="index.html">Inicio</a>
+                <a href="prestamos.html">Préstamos</a>
+                <a href="devoluciones.html">Devoluciones</a>
+                <a href="reportes.html">Reportes</a>
+                <a href="alta.html">Alta de Libros</a>
+                <a href="modificar.html">Modificar Libro</a>
+                <a href="eliminar.html">Eliminar Libro</a>
+                <a href="cubiculos.html" class="active">Cubículos</a>
+            </nav>
+        </aside>
+
+        <main class="content">
+
+            <div class="cubiculos-header">
+                <h2>Gestión de Cubículos</h2>
+                <div class="reloj-live" id="reloj">00:00:00</div>
+            </div>
+
+            <div class="leyenda">
+                <div class="leyenda-item"><div class="dot dot-libre"></div> Disponible</div>
+                <div class="leyenda-item"><div class="dot dot-ocupado"></div> Ocupado</div>
+                <div class="leyenda-item"><div class="dot dot-por-vencer"></div> Por vencer (&lt;10 min)</div>
+            </div>
+
+            <!-- GRID DE CUBÍCULOS — renderizado por jQuery -->
+            <div class="cubiculos-grid" id="cubiculosGrid"></div>
+
+            <!-- SECCIÓN DE COLA -->
+            <div class="seccion-cola">
+                <h3>&#9776; Cola de Espera</h3>
+
+                <ul class="cola-lista" id="colaLista"></ul>
+
+                <div class="cola-empty" id="colaEmpty" style="display:none;">
+                    No hay nadie en la cola en este momento.
+                </div>
+
+                <div class="reserva-form">
+                    <input type="text" id="inputNombre"    placeholder="Nombre del alumno">
+                    <input type="text" id="inputMatricula" placeholder="Matrícula">
+                    <select id="inputDuracion">
+                        <option value="60">1 hora</option>
+                        <option value="90">1 h 30 min</option>
+                        <option value="120">2 horas</option>
+                    </select>
+                    <button class="btn btn-blue" id="btnAgregarCola">+ AGREGAR A COLA</button>
+                </div>
+            </div>
+
+        </main>
+
+        <img src="../SEBASWEST.png" alt="Logo Sebas West Corporation" class="sebas-west-corner">
+    </div>
+
+    <!-- MODAL ASIGNAR -->
+    <div class="modal-overlay" id="modalAsignar">
+        <div class="modal-box">
+            <h3 id="modalTitulo">Asignar Cubículo</h3>
+            <label for="mNombre">Nombre del Alumno</label>
+            <input type="text" id="mNombre" placeholder="Ej. Ana García">
+            <label for="mMatricula">Matrícula</label>
+            <input type="text" id="mMatricula" placeholder="Ej. A012345">
+            <label for="mDuracion">Duración</label>
+            <select id="mDuracion">
+                <option value="60">1 hora</option>
+                <option value="90">1 h 30 min</option>
+                <option value="120">2 horas</option>
+            </select>
+            <div class="modal-btns">
+                <button class="btn btn-green" id="btnConfirmarAsignacion">CONFIRMAR</button>
+                <button class="btn btn-gray"  id="btnCerrarModal">CANCELAR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-text">
+                <p>SEBAS ₩€$₺ CORPORATION</p>
+                <p>© 2026 - Todos los derechos reservados</p>
+                <nav class="footer-links">
+                    <a href="nosotros.html">Sobre Nosotros</a>
+                    <span class="separator">|</span>
+                    <a href="nosotros.html#mision">Misión y Visión</a>
+                    <span class="separator">|</span>
+                    <a href="nosotros.html#valores">Nuestros Valores</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Lógica de cubículos -->
+    <script src="../js/cubiculos.js"></script>
+
+</body>
+</html>

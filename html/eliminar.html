@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca - Eliminar Libro</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../formularios.css">
+</head>
+<body>
+
+    <header class="top-bar">
+        <h1>BIBLIOTECA UNIVERSITARIA</h1>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <nav>
+                <a href="index.html">Inicio</a>
+                <a href="prestamos.html">Préstamos</a>
+                <a href="devoluciones.html">Devoluciones</a>
+                <a href="reportes.html">Reportes</a>
+                <a href="alta.html">Alta de Libros</a>
+                <a href="modificar.html">Modificar Libro</a>
+                <a href="eliminar.html" class="active">Eliminar Libro</a>
+                <a href="cubiculos.html">Cubículos</a>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <h2>Eliminar Libro</h2>
+
+            <div class="mensaje-formulario" id="mensajeFormulario" style="display:none;"></div>
+
+            <form class="book-form" id="formEliminar" action="#" method="post" novalidate>
+
+                <label for="isbnEliminar">ISBN del libro a eliminar</label>
+                <input type="text" id="isbnEliminar" name="isbnEliminar" placeholder="10 o 13 dígitos numéricos">
+                <span class="campo-error" id="error-isbnEliminar" style="display:none;"></span>
+
+                <div class="form-actions">
+                    <button class="btn btn-red" type="submit">CONFIRMAR ELIMINACIÓN</button>
+                    <a href="index.html" class="btn btn-gray">CANCELAR</a>
+                </div>
+
+            </form>
+        </main>
+
+        <img src="../SEBASWEST.png" alt="Logo Sebas West Corporation" class="sebas-west-corner">
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-text">
+                <p>SEBAS ₩€$₺ CORPORATION</p>
+                <p>© 2026 - Todos los derechos reservados</p>
+                <nav class="footer-links">
+                    <a href="nosotros.html">Sobre Nosotros</a>
+                    <span class="separator">|</span>
+                    <a href="nosotros.html#mision">Misión y Visión</a>
+                    <span class="separator">|</span>
+                    <a href="nosotros.html#valores">Nuestros Valores</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="../js/validaciones.js"></script>
+
+</body>
+</html>
