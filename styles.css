@@ -659,3 +659,120 @@ input[type="text"] {
 .toast.show  { opacity: 1; transform: translateY(0); }
 .toast.exito { background: #28a745; }
 .toast.error { background: #dc3545; }
+<<<<<<< HEAD
+=======
+
+
+/* ═══════════════════════════════════════════════
+   JQUERY / DINÁMICA — Validaciones y Mensajes
+═══════════════════════════════════════════════ */
+
+/* Campos de formulario con estado */
+.input-valido {
+    border-color: #28a745 !important;
+    background-color: #f6fff8;
+}
+
+.input-invalido {
+    border-color: #dc3545 !important;
+    background-color: #fff5f5;
+}
+
+/* Mensajes debajo de campos */
+.campo-error {
+    display: block;
+    font-size: 13px;
+    margin-top: 4px;
+    margin-bottom: 6px;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.campo-error.campo-error {
+    color: #721c24;
+    background-color: #f8d7da;
+}
+
+.campo-error.campo-exito {
+    color: #155724;
+    background-color: #d4edda;
+}
+
+/* Mensajes generales de formulario */
+.mensaje-formulario,
+.mensaje-exito {
+    padding: 14px 20px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.msg-exito {
+    background-color: #d4edda;
+    color: #155724;
+    border-left: 4px solid #28a745;
+}
+
+.msg-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-left: 4px solid #dc3545;
+}
+
+.mensaje-exito {
+    background-color: #d4edda;
+    color: #155724;
+    border-left: 4px solid #28a745;
+    width: 100%;
+    max-width: 700px;
+    margin-top: 16px;
+}
+
+/* Botón deshabilitado */
+.btn-disabled,
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Contador de resultados */
+.contador-resultados {
+    font-size: 14px;
+    color: #666;
+    margin: 12px 0 20px;
+    font-style: italic;
+}
+
+/* Sin resultados */
+.sin-resultados {
+    text-align: center;
+    color: #aaa;
+    font-size: 16px;
+    padding: 40px 0;
+}
+
+/* Modal libro titulo */
+.modal-libro-titulo {
+    font-size: 16px;
+    font-weight: bold;
+    color: #003366;
+    margin-bottom: 16px;
+    padding: 10px;
+    background: #f0f4ff;
+    border-radius: 6px;
+    border-left: 4px solid #003366;
+}
+
+/* Efecto click en botón buscar */
+.btn-clicked {
+    transform: scale(0.96);
+}
+
+/* Cola siguiente */
+.cola-siguiente {
+    color: #28a745;
+    font-size: 12px;
+    font-weight: bold;
+}
+>>>>>>> 786b08f (Jquery and js functionalities in create with the validations, cubicles with the logic, implementation)

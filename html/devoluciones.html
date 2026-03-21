@@ -2,6 +2,10 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+<<<<<<< HEAD
+=======
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+>>>>>>> 786b08f (Jquery and js functionalities in create with the validations, cubicles with the logic, implementation)
     <title>Biblioteca - Devoluciones</title>
     <link rel="stylesheet" href="../styles.css">
 </head>
@@ -27,6 +31,7 @@
 
         <main class="content">
             <h2>Registro de Devolución</h2>
+<<<<<<< HEAD
             
             <div class="return-form">
                 <label>Escanear ISBN o Matrícula del Alumno:</label>
@@ -44,6 +49,31 @@
         </main>
 
         <img src="../SEBASWEST.png" alt="Sebas West Logo" class="sebas-west-corner">
+=======
+
+            <form class="book-form" id="formDevolucion" action="#" method="post" novalidate>
+
+                <label for="isbnDevolucion">ISBN del Libro</label>
+                <input type="text" id="isbnDevolucion" name="isbnDevolucion" placeholder="10 o 13 dígitos">
+                <span class="campo-error" id="error-isbnDevolucion" style="display:none;"></span>
+
+                <label for="matriculaDevolucion">Matrícula del Alumno</label>
+                <input type="text" id="matriculaDevolucion" name="matriculaDevolucion" placeholder="Ej. A012345">
+                <span class="campo-error" id="error-matriculaDevolucion" style="display:none;"></span>
+
+                <div class="form-actions">
+                    <button class="btn btn-green" type="submit">CONFIRMAR DEVOLUCIÓN</button>
+                    <a href="index.html" class="btn btn-gray">CANCELAR</a>
+                </div>
+
+            </form>
+
+            <div class="mensaje-exito" id="mensajeDevolucion" style="display:none;"></div>
+
+        </main>
+
+        <img src="../SEBASWEST.png" alt="Logo Sebas West Corporation" class="sebas-west-corner">
+>>>>>>> 786b08f (Jquery and js functionalities in create with the validations, cubicles with the logic, implementation)
     </div>
 
     <footer class="footer">
@@ -62,5 +92,11 @@
         </div>
     </footer>
 
+<<<<<<< HEAD
+=======
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="../js/validaciones.js"></script>
+
+>>>>>>> 786b08f (Jquery and js functionalities in create with the validations, cubicles with the logic, implementation)
 </body>
 </html>

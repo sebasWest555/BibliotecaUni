@@ -39,7 +39,11 @@
                 <div class="leyenda-item"><div class="dot dot-por-vencer"></div> Por vencer (&lt;10 min)</div>
             </div>
 
+<<<<<<< HEAD
             <!-- GRID DE CUBÍCULOS -->
+=======
+            <!-- GRID DE CUBÍCULOS — renderizado por jQuery -->
+>>>>>>> 786b08f (Jquery and js functionalities in create with the validations, cubicles with the logic, implementation)
             <div class="cubiculos-grid" id="cubiculosGrid"></div>
 
             <!-- SECCIÓN DE COLA -->
@@ -60,32 +64,53 @@
                         <option value="90">1 h 30 min</option>
                         <option value="120">2 horas</option>
                     </select>
+<<<<<<< HEAD
                     <button class="btn btn-blue" onclick="agregarCola()">+ AGREGAR A COLA</button>
+=======
+                    <button class="btn btn-blue" id="btnAgregarCola">+ AGREGAR A COLA</button>
+>>>>>>> 786b08f (Jquery and js functionalities in create with the validations, cubicles with the logic, implementation)
                 </div>
             </div>
 
         </main>
 
+<<<<<<< HEAD
         <img src="../SEBASWEST.png" alt="Sebas West Logo" class="sebas-west-corner">
+=======
+        <img src="../SEBASWEST.png" alt="Logo Sebas West Corporation" class="sebas-west-corner">
+>>>>>>> 786b08f (Jquery and js functionalities in create with the validations, cubicles with the logic, implementation)
     </div>
 
     <!-- MODAL ASIGNAR -->
     <div class="modal-overlay" id="modalAsignar">
         <div class="modal-box">
             <h3 id="modalTitulo">Asignar Cubículo</h3>
+<<<<<<< HEAD
             <label>Nombre del Alumno</label>
             <input type="text" id="mNombre" placeholder="Ej. Ana García">
             <label>Matrícula</label>
             <input type="text" id="mMatricula" placeholder="Ej. A012345">
             <label>Duración</label>
+=======
+            <label for="mNombre">Nombre del Alumno</label>
+            <input type="text" id="mNombre" placeholder="Ej. Ana García">
+            <label for="mMatricula">Matrícula</label>
+            <input type="text" id="mMatricula" placeholder="Ej. A012345">
+            <label for="mDuracion">Duración</label>
+>>>>>>> 786b08f (Jquery and js functionalities in create with the validations, cubicles with the logic, implementation)
             <select id="mDuracion">
                 <option value="60">1 hora</option>
                 <option value="90">1 h 30 min</option>
                 <option value="120">2 horas</option>
             </select>
             <div class="modal-btns">
+<<<<<<< HEAD
                 <button class="btn btn-green" onclick="confirmarAsignacion()">CONFIRMAR</button>
                 <button class="btn" style="background:#6c757d;color:#fff;" onclick="cerrarModal()">CANCELAR</button>
+=======
+                <button class="btn btn-green" id="btnConfirmarAsignacion">CONFIRMAR</button>
+                <button class="btn btn-gray"  id="btnCerrarModal">CANCELAR</button>
+>>>>>>> 786b08f (Jquery and js functionalities in create with the validations, cubicles with the logic, implementation)
             </div>
         </div>
     </div>
@@ -109,7 +134,14 @@
         </div>
     </footer>
 
+<<<<<<< HEAD
     <script src="../cubiculos.js"></script>
+=======
+    <!-- jQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Lógica de cubículos -->
+    <script src="../js/cubiculos.js"></script>
+>>>>>>> 786b08f (Jquery and js functionalities in create with the validations, cubicles with the logic, implementation)
 
 </body>
 </html>

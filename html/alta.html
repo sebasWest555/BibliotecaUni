@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca - Alta de Libros</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../formularios.css">
+</head>
+<body>
+
+    <header class="top-bar">
+        <h1>BIBLIOTECA UNIVERSITARIA</h1>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <nav>
+                <a href="index.html">Inicio</a>
+                <a href="prestamos.html">Préstamos</a>
+                <a href="devoluciones.html">Devoluciones</a>
+                <a href="reportes.html">Reportes</a>
+                <a href="alta.html" class="active">Alta de Libros</a>
+                <a href="modificar.html">Modificar Libro</a>
+                <a href="eliminar.html">Eliminar Libro</a>
+                <a href="cubiculos.html">Cubículos</a>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <h2>Alta de Libro</h2>
+
+            <div class="mensaje-formulario" id="mensajeFormulario" style="display:none;"></div>
+
+            <form class="book-form" id="formLibro" action="#" method="post" novalidate>
+
+                <label for="titulo">Título</label>
+                <input type="text" id="titulo" name="titulo" placeholder="Título del libro">
+                <span class="campo-error" id="error-titulo" style="display:none;"></span>
+
+                <label for="autor">Autor</label>
+                <input type="text" id="autor" name="autor" placeholder="Nombre del autor">
+                <span class="campo-error" id="error-autor" style="display:none;"></span>
+
+                <label for="isbn">ISBN</label>
+                <input type="text" id="isbn" name="isbn" placeholder="10 o 13 dígitos numéricos">
+                <span class="campo-error" id="error-isbn" style="display:none;"></span>
+
+                <label for="editorial">Editorial</label>
+                <input type="text" id="editorial" name="editorial" placeholder="Editorial">
+                <span class="campo-error" id="error-editorial" style="display:none;"></span>
+
+                <label for="anio">Año</label>
+                <input type="number" id="anio" name="anio" placeholder="Año de publicación">
+                <span class="campo-error" id="error-anio" style="display:none;"></span>
+
+                <label for="genero">Género</label>
+                <input type="text" id="genero" name="genero" placeholder="Género o categoría">
+                <span class="campo-error" id="error-genero" style="display:none;"></span>
+
+                <label for="copias">Copias</label>
+                <input type="number" id="copias" name="copias" min="1" value="1">
+                <span class="campo-error" id="error-copias" style="display:none;"></span>
+
+                <label for="descripcion">Descripción</label>
+                <textarea id="descripcion" name="descripcion" rows="4" placeholder="Breve descripción"></textarea>
+                <span class="campo-error" id="error-descripcion" style="display:none;"></span>
+
+                <div class="form-actions">
+                    <button class="btn btn-green" type="submit">GUARDAR</button>
+                    <a href="index.html" class="btn btn-gray">CANCELAR</a>
+                </div>
+
+            </form>
+        </main>
+
+        <img src="../SEBASWEST.png" alt="Logo Sebas West Corporation" class="sebas-west-corner">
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-text">
+                <p>SEBAS ₩€$₺ CORPORATION</p>
+                <p>© 2026 - Todos los derechos reservados</p>
+                <nav class="footer-links">
+                    <a href="nosotros.html">Sobre Nosotros</a>
+                    <span class="separator">|</span>
+                    <a href="nosotros.html#mision">Misión y Visión</a>
+                    <span class="separator">|</span>
+                    <a href="nosotros.html#valores">Nuestros Valores</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="../js/validaciones.js"></script>
+
+</body>
+</html>

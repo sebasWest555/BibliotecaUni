@@ -3,13 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>Biblioteca - Inicio</title>
+=======
+    <title>Biblioteca Universitaria - Inicio</title>
+>>>>>>> 786b08f (Jquery and js functionalities in create with the validations, cubicles with the logic, implementation)
     <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
 
     <header class="top-bar">
+<<<<<<< HEAD
         <h1 >BIBLIOTECA UNIVERSITARIA</h1>
+=======
+        <h1>BIBLIOTECA UNIVERSITARIA</h1>
+>>>>>>> 786b08f (Jquery and js functionalities in create with the validations, cubicles with the logic, implementation)
     </header>
 
     <div class="main-container">
@@ -27,6 +35,7 @@
         </aside>
 
         <main class="content centered-content">
+<<<<<<< HEAD
             <div class="logo-contaner">
                 <img alt="logo Biblioteca" src="../logo_biblioteca.png" class="owl-logo">
             </div>
@@ -39,12 +48,56 @@
         </main>
 
         <img src="../SEBASWEST.png" alt="Sebas West Logo" class="sebas-west-corner">
+=======
+
+            <div class="logo-contaner">
+                <img alt="Logo Biblioteca Universitaria" src="../logo_biblioteca.png" class="owl-logo">
+            </div>
+
+            <div class="search-box-large">
+                <input type="text" id="inputBuscar" placeholder="Buscar por Título, Autor, ISBN o Género...">
+            </div>
+
+            <button class="btn btn-blue btn-large" id="btnBuscar">BUSCAR</button>
+
+            <!-- Contador de resultados -->
+            <p class="contador-resultados" id="contadorResultados"></p>
+
+            <!-- Mensaje de éxito al prestar -->
+            <div class="mensaje-exito" id="mensajeExito" style="display:none;"></div>
+
+            <!-- Lista de resultados dinámica -->
+            <div class="book-list" id="bookList"></div>
+
+        </main>
+
+        <img src="../SEBASWEST.png" alt="Logo Sebas West Corporation" class="sebas-west-corner">
+    </div>
+
+    <!-- MODAL DE PRÉSTAMO -->
+    <div class="modal-overlay" id="modalPrestamo">
+        <div class="modal-box">
+            <h3>Registrar Préstamo</h3>
+            <p class="modal-libro-titulo" id="modalPrestamoTitulo"></p>
+            <input type="hidden" id="modalPrestamoISBN">
+
+            <label>Matrícula del Alumno</label>
+            <input type="text" id="inputMatriculaPrestamo" placeholder="Ej. A012345">
+            <span class="campo-error" id="errorMatriculaPrestamo"></span>
+
+            <div class="modal-btns">
+                <button class="btn btn-green" id="btnConfirmarPrestamo">CONFIRMAR</button>
+                <button class="btn btn-gray" id="btnCerrarModalPrestamo">CANCELAR</button>
+            </div>
+        </div>
+>>>>>>> 786b08f (Jquery and js functionalities in create with the validations, cubicles with the logic, implementation)
     </div>
 
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-text">
                 <p>SEBAS ₩€$₺ CORPORATION</p>
+<<<<<<< HEAD
                 <p>© 2026 - Todos los derechos reservados</p> 
                 <nav class="footer-links">
                 <a href="nosotros.html">Sobre Nosotros</a>
@@ -58,5 +111,24 @@
         
     </footer>
 
+=======
+                <p>© 2026 - Todos los derechos reservados</p>
+                <nav class="footer-links">
+                    <a href="nosotros.html">Sobre Nosotros</a>
+                    <span class="separator">|</span>
+                    <a href="nosotros.html#mision">Misión y Visión</a>
+                    <span class="separator">|</span>
+                    <a href="nosotros.html#valores">Nuestros Valores</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Lógica de biblioteca -->
+    <script src="../js/biblioteca.js"></script>
+
+>>>>>>> 786b08f (Jquery and js functionalities in create with the validations, cubicles with the logic, implementation)
 </body>
 </html>

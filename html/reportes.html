@@ -2,6 +2,10 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+<<<<<<< HEAD
+=======
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+>>>>>>> 786b08f (Jquery and js functionalities in create with the validations, cubicles with the logic, implementation)
     <title>Biblioteca - Reportes</title>
     <link rel="stylesheet" href="../styles.css">
 </head>
@@ -27,28 +31,65 @@
 
         <main class="content">
             <h2>Generación de Reportes</h2>
+<<<<<<< HEAD
             
             <div class="report-list">
                 
                 <div class="report-item">
                     <span class="report-name">Libros Prestados del Mes</span>
                     <button class="btn btn-blue-outline">DESCARGAR PDF</button>
+=======
+
+            <!-- Mensaje dinámico al descargar -->
+            <div class="mensaje-exito" id="mensajeReporte" style="display:none;"></div>
+
+            <div class="report-list" id="reportList">
+
+                <div class="report-item">
+                    <span class="report-name">Libros Prestados del Mes</span>
+                    <button class="btn btn-blue-outline btn-reporte" data-reporte="Libros Prestados del Mes">
+                        DESCARGAR PDF
+                    </button>
+>>>>>>> 786b08f (Jquery and js functionalities in create with the validations, cubicles with the logic, implementation)
                 </div>
 
                 <div class="report-item">
                     <span class="report-name">Alumnos con Multas Activas</span>
+<<<<<<< HEAD
                     <button class="btn btn-blue-outline">DESCARGAR PDF</button>
+=======
+                    <button class="btn btn-blue-outline btn-reporte" data-reporte="Alumnos con Multas Activas">
+                        DESCARGAR PDF
+                    </button>
+>>>>>>> 786b08f (Jquery and js functionalities in create with the validations, cubicles with the logic, implementation)
                 </div>
 
                 <div class="report-item">
                     <span class="report-name">Inventario General Completo</span>
+<<<<<<< HEAD
                     <button class="btn btn-blue-outline">DESCARGAR PDF</button>
+=======
+                    <button class="btn btn-blue-outline btn-reporte" data-reporte="Inventario General Completo">
+                        DESCARGAR PDF
+                    </button>
+                </div>
+
+                <div class="report-item">
+                    <span class="report-name">Cubículos Utilizados del Mes</span>
+                    <button class="btn btn-blue-outline btn-reporte" data-reporte="Cubículos Utilizados del Mes">
+                        DESCARGAR PDF
+                    </button>
+>>>>>>> 786b08f (Jquery and js functionalities in create with the validations, cubicles with the logic, implementation)
                 </div>
 
             </div>
         </main>
 
+<<<<<<< HEAD
         <img src="../SEBASWEST.png" alt="Sebas West Logo" class="sebas-west-corner">
+=======
+        <img src="../SEBASWEST.png" alt="Logo Sebas West Corporation" class="sebas-west-corner">
+>>>>>>> 786b08f (Jquery and js functionalities in create with the validations, cubicles with the logic, implementation)
     </div>
 
     <footer class="footer">
@@ -67,5 +108,45 @@
         </div>
     </footer>
 
+<<<<<<< HEAD
+=======
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+
+            /* Aparición escalonada de los reportes con fadeIn */
+            $(".report-item").each(function (i) {
+                $(this).hide().delay(i * 100).fadeIn(300);
+            });
+
+            /* Clic en DESCARGAR PDF — mensaje dinámico sin recargar */
+            $(document).on("click", ".btn-reporte", function () {
+                const nombre  = $(this).data("reporte");
+                const $btn    = $(this);
+
+                $btn.text("GENERANDO...").prop("disabled", true);
+
+                setTimeout(function () {
+                    $btn.text("DESCARGAR PDF").prop("disabled", false);
+                    $("#mensajeReporte")
+                        .text('✓ Reporte "' + nombre + '" generado correctamente.')
+                        .addClass("msg-exito")
+                        .fadeIn(300)
+                        .delay(3500)
+                        .fadeOut(400);
+                }, 1200);
+            });
+
+            /* Hover animado en botones */
+            $(document).on("mouseenter", ".btn:not(:disabled)", function () {
+                $(this).stop(true).animate({ opacity: 0.85 }, 100);
+            }).on("mouseleave", ".btn:not(:disabled)", function () {
+                $(this).stop(true).animate({ opacity: 1 }, 100);
+            });
+
+        });
+    </script>
+
+>>>>>>> 786b08f (Jquery and js functionalities in create with the validations, cubicles with the logic, implementation)
 </body>
 </html>

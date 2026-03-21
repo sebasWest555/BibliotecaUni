@@ -2,6 +2,10 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+<<<<<<< HEAD
+=======
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+>>>>>>> 786b08f (Jquery and js functionalities in create with the validations, cubicles with the logic, implementation)
     <title>Biblioteca - Préstamos</title>
     <link rel="stylesheet" href="../styles.css">
 </head>
@@ -26,6 +30,7 @@
         </aside>
 
         <main class="content">
+<<<<<<< HEAD
             <div class="search-bar-top">
                 <input type="text" placeholder="Buscar libro...">
                 <button class="btn btn-blue">BUSCAR</button>
@@ -69,6 +74,45 @@
         </main>
 
         <img src="../SEBASWEST.png" alt="Sebas West Logo" class="sebas-west-corner">
+=======
+
+            <div class="search-bar-top">
+                <input type="text" id="inputBuscarPrestamos" placeholder="Buscar libro...">
+                <button class="btn btn-blue" id="btnBuscar">BUSCAR</button>
+            </div>
+
+            <h2>Catálogo de Libros</h2>
+
+            <p class="contador-resultados" id="contadorResultados"></p>
+
+            <!-- Mensaje de éxito al prestar -->
+            <div class="mensaje-exito" id="mensajeExito" style="display:none;"></div>
+
+            <!-- Lista renderizada dinámicamente por biblioteca.js -->
+            <div class="book-list" id="bookList"></div>
+
+        </main>
+
+        <img src="../SEBASWEST.png" alt="Logo Sebas West Corporation" class="sebas-west-corner">
+    </div>
+
+    <!-- MODAL DE PRÉSTAMO -->
+    <div class="modal-overlay" id="modalPrestamo">
+        <div class="modal-box">
+            <h3>Registrar Préstamo</h3>
+            <p class="modal-libro-titulo" id="modalPrestamoTitulo"></p>
+            <input type="hidden" id="modalPrestamoISBN">
+
+            <label>Matrícula del Alumno</label>
+            <input type="text" id="inputMatriculaPrestamo" placeholder="Ej. A012345">
+            <span class="campo-error" id="errorMatriculaPrestamo"></span>
+
+            <div class="modal-btns">
+                <button class="btn btn-green" id="btnConfirmarPrestamo">CONFIRMAR</button>
+                <button class="btn btn-gray" id="btnCerrarModalPrestamo">CANCELAR</button>
+            </div>
+        </div>
+>>>>>>> 786b08f (Jquery and js functionalities in create with the validations, cubicles with the logic, implementation)
     </div>
 
     <footer class="footer">
@@ -87,5 +131,11 @@
         </div>
     </footer>
 
+<<<<<<< HEAD
+=======
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="../js/biblioteca.js"></script>
+
+>>>>>>> 786b08f (Jquery and js functionalities in create with the validations, cubicles with the logic, implementation)
 </body>
 </html>
