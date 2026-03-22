@@ -659,8 +659,6 @@ input[type="text"] {
 .toast.show  { opacity: 1; transform: translateY(0); }
 .toast.exito { background: #28a745; }
 .toast.error { background: #dc3545; }
-<<<<<<< HEAD
-=======
 
 
 /* ═══════════════════════════════════════════════
@@ -775,4 +773,3 @@ input[type="text"] {
     font-size: 12px;
     font-weight: bold;
 }
->>>>>>> 786b08f (Jquery and js functionalities in create with the validations, cubicles with the logic, implementation)
