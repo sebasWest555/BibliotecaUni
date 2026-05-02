@@ -21,3 +21,6 @@ build/
 
 # Other common ignores
 *.swp
+
+#variables de entorno
+backend/.env
