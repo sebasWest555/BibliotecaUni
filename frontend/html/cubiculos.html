@@ -1,28 +1,33 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblioteca - Cubículos</title>
     <link rel="stylesheet" href="../styles.css">
 </head>
+
 <body>
 
     <header class="top-bar">
         <h1>BIBLIOTECA UNIVERSITARIA</h1>
+        <div id="headerAdmin">
+            <button class="btn-admin-login" id="btnAbrirLogin">&#128274; Administrador</button>
+        </div>
     </header>
 
     <div class="main-container">
         <aside class="sidebar">
             <nav>
                 <a href="index.html">Inicio</a>
-                <a href="prestamos.html">Préstamos</a>
-                <a href="devoluciones.html">Devoluciones</a>
-                <a href="reportes.html">Reportes</a>
-                <a href="alta.html">Alta de Libros</a>
-                <a href="modificar.html">Modificar Libro</a>
-                <a href="eliminar.html">Eliminar Libro</a>
-                <a href="cubiculos.html" class="active">Cubículos</a>
+                <a href="prestamos.html" class="solo-admin" style="display:none;">Préstamos</a>
+                <a href="devoluciones.html" class="solo-admin" style="display:none;">Devoluciones</a>
+                <a href="reportes.html" class="solo-admin" style="display:none;">Reportes</a>
+                <a href="alta.html" class="solo-admin" style="display:none;">Alta de Libros</a>
+                <a href="modificar.html" class="solo-admin" style="display:none;">Modificar Libro</a>
+                <a href="eliminar.html" class="solo-admin" style="display:none;">Eliminar Libro</a>
+                <a href="cubiculos.html">Cubículos</a>
             </nav>
         </aside>
 
@@ -34,9 +39,15 @@
             </div>
 
             <div class="leyenda">
-                <div class="leyenda-item"><div class="dot dot-libre"></div> Disponible</div>
-                <div class="leyenda-item"><div class="dot dot-ocupado"></div> Ocupado</div>
-                <div class="leyenda-item"><div class="dot dot-por-vencer"></div> Por vencer (&lt;10 min)</div>
+                <div class="leyenda-item">
+                    <div class="dot dot-libre"></div> Disponible
+                </div>
+                <div class="leyenda-item">
+                    <div class="dot dot-ocupado"></div> Ocupado
+                </div>
+                <div class="leyenda-item">
+                    <div class="dot dot-por-vencer"></div> Por vencer (&lt;10 min)
+                </div>
             </div>
 
             <!-- GRID DE CUBÍCULOS — renderizado por jQuery -->
@@ -53,7 +64,7 @@
                 </div>
 
                 <div class="reserva-form">
-                    <input type="text" id="inputNombre"    placeholder="Nombre del alumno">
+                    <input type="text" id="inputNombre" placeholder="Nombre del alumno">
                     <input type="text" id="inputMatricula" placeholder="Matrícula">
                     <select id="inputDuracion">
                         <option value="60">1 hora</option>
@@ -85,7 +96,7 @@
             </select>
             <div class="modal-btns">
                 <button class="btn btn-green" id="btnConfirmarAsignacion">CONFIRMAR</button>
-                <button class="btn btn-gray"  id="btnCerrarModal">CANCELAR</button>
+                <button class="btn btn-gray" id="btnCerrarModal">CANCELAR</button>
             </div>
         </div>
     </div>
@@ -114,5 +125,9 @@
     <!-- Lógica de cubículos -->
     <script src="../js/cubiculos.js"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="../js/auth.js"></script>
+
 </body>
+
 </html>

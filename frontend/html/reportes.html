@@ -1,27 +1,32 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblioteca - Reportes</title>
     <link rel="stylesheet" href="../styles.css">
 </head>
+
 <body>
 
     <header class="top-bar">
         <h1>BIBLIOTECA UNIVERSITARIA</h1>
+        <div id="headerAdmin">
+            <button class="btn-admin-login" id="btnAbrirLogin">&#128274; Administrador</button>
+        </div>
     </header>
 
     <div class="main-container">
         <aside class="sidebar">
             <nav>
                 <a href="index.html">Inicio</a>
-                <a href="prestamos.html">Préstamos</a>
-                <a href="devoluciones.html">Devoluciones</a>
-                <a href="reportes.html" class="active">Reportes</a>
-                <a href="alta.html">Alta de Libros</a>
-                <a href="modificar.html">Modificar Libro</a>
-                <a href="eliminar.html">Eliminar Libro</a>
+                <a href="prestamos.html" class="solo-admin" style="display:none;">Préstamos</a>
+                <a href="devoluciones.html" class="solo-admin" style="display:none;">Devoluciones</a>
+                <a href="reportes.html" class="solo-admin" style="display:none;">Reportes</a>
+                <a href="alta.html" class="solo-admin" style="display:none;">Alta de Libros</a>
+                <a href="modificar.html" class="solo-admin" style="display:none;">Modificar Libro</a>
+                <a href="eliminar.html" class="solo-admin" style="display:none;">Eliminar Libro</a>
                 <a href="cubiculos.html">Cubículos</a>
             </nav>
         </aside>
@@ -95,8 +100,8 @@
 
             /* Clic en DESCARGAR PDF — mensaje dinámico sin recargar */
             $(document).on("click", ".btn-reporte", function () {
-                const nombre  = $(this).data("reporte");
-                const $btn    = $(this);
+                const nombre = $(this).data("reporte");
+                const $btn = $(this);
 
                 $btn.text("GENERANDO...").prop("disabled", true);
 
@@ -121,5 +126,8 @@
         });
     </script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="../js/auth.js"></script>
 </body>
+
 </html>

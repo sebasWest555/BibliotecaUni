@@ -1,114 +1,13 @@
 /* ══════════════════════════════════════════════════════
-   biblioteca.js — Objetos, Constructores y Lógica Principal
-   Biblioteca Universitaria · SEBAS WEST CORPORATION
-   Unidad 3 — Programación del Lado del Cliente
+   biblioteca.js — Conexión Frontend → Backend
+   Unidad 4 — Programación del Lado del Servidor
+   Usa AJAX (jQuery) para consumir la API REST
 ══════════════════════════════════════════════════════ */
 
-/* ─────────────────────────────────────────
-   PASO 3 — Constructor de Libro
-   Define la estructura de un objeto Libro
-───────────────────────────────────────── */
-function Libro(titulo, autor, isbn, editorial, anio, genero, copias, descripcion) {
-    this.titulo      = titulo;
-    this.autor       = autor;
-    this.isbn        = isbn;
-    this.editorial   = editorial;
-    this.anio        = anio;
-    this.genero      = genero;
-    this.copias      = copias;
-    this.descripcion = descripcion;
-}
+const API = 'http://localhost:3000/api';
 
-/* ─────────────────────────────────────────
-   Array de libros de ejemplo (mínimo 5)
-   En producción estos vendrían de la BD
-───────────────────────────────────────── */
-const catalogoLibros = [
-    new Libro(
-        "Cálculo de Una Variable",
-        "James Stewart",
-        "9780538497817",
-        "Cengage Learning",
-        2012,
-        "Matemáticas",
-        3,
-        "Introducción al cálculo diferencial e integral de una variable con aplicaciones."
-    ),
-    new Libro(
-        "Ingeniería de Software: Un Enfoque Práctico",
-        "Roger S. Pressman",
-        "9786071503145",
-        "McGraw-Hill",
-        2010,
-        "Ingeniería",
-        2,
-        "Fundamentos del proceso de software, modelado y gestión de proyectos."
-    ),
-    new Libro(
-        "Física Universitaria Vol. 1",
-        "Sears y Zemansky",
-        "9786073215237",
-        "Pearson",
-        2013,
-        "Física",
-        0,
-        "Mecánica, oscilaciones, ondas y termodinámica para estudiantes universitarios."
-    ),
-    new Libro(
-        "Estructuras de Datos y Algoritmos en Java",
-        "Michael T. Goodrich",
-        "9780470383267",
-        "Wiley",
-        2010,
-        "Programación",
-        5,
-        "Diseño e implementación de estructuras de datos fundamentales usando Java."
-    ),
-    new Libro(
-        "El Arte de Programar Computadoras",
-        "Donald E. Knuth",
-        "9780201896831",
-        "Addison-Wesley",
-        1997,
-        "Programación",
-        1,
-        "Obra clásica sobre algoritmos fundamentales y análisis de complejidad."
-    ),
-    new Libro(
-        "Base de Datos",
-        "Abraham Silberschatz",
-        "9788448190330",
-        "McGraw-Hill",
-        2014,
-        "Bases de Datos",
-        4,
-        "Conceptos fundamentales de sistemas de bases de datos relacionales y no relacionales."
-    ),
-    new Libro(
-        "Redes de Computadoras",
-        "Andrew S. Tanenbaum",
-        "9789702605855",
-        "Pearson",
-        2012,
-        "Redes",
-        0,
-        "Principios y protocolos de redes de computadoras desde la capa física hasta la aplicación."
-    ),
-];
-
-/* ─────────────────────────────────────────
-   RENDERIZADO DE LIBROS EN PRÉSTAMOS
-   Usa jQuery .append() y condicionales
-   if/else para el botón PRESTAR/BLOQUEADO
-───────────────────────────────────────── */
-
-/**
- * Genera el HTML de una tarjeta de libro.
- * @param {Libro} libro
- * @returns {string} HTML del elemento
- */
+// ── RENDERIZADO DE LIBROS ────────────────────────────
 function crearTarjetaLibro(libro) {
-    // if/else: botón verde si hay copias, rojo si no
     const boton = libro.copias > 0
         ? `<button class="btn btn-green btn-prestar" data-isbn="${libro.isbn}">PRESTAR</button>`
         : `<button class="btn btn-red" disabled>BLOQUEADO</button>`;
@@ -120,176 +19,295 @@ function crearTarjetaLibro(libro) {
                 <p>Autor: ${libro.autor} &nbsp;|&nbsp; ISBN: ${libro.isbn}</p>
                 <p>Editorial: ${libro.editorial} &nbsp;|&nbsp; Año: ${libro.anio} &nbsp;|&nbsp; Copias disponibles: <strong>${libro.copias}</strong></p>
             </div>
-            <div class="book-actions">
-                ${boton}
-            </div>
+            <div class="book-actions">${boton}</div>
         </div>
     `;
 }
 
-/**
- * Renderiza un array de libros en el contenedor #bookList.
- * @param {Libro[]} libros
- */
 function renderizarLibros(libros) {
-    const $lista = $("#bookList");
-    $lista.empty(); // limpiar antes de renderizar
+    const $lista = $("#bookList").empty();
 
     if (libros.length === 0) {
         $lista.html('<p class="sin-resultados">No se encontraron libros.</p>');
         return;
     }
 
-    // Bucle for para recorrer el array
     for (let i = 0; i < libros.length; i++) {
-        const html = crearTarjetaLibro(libros[i]);
-        $lista.append($(html).hide().fadeIn(300 + i * 80)); // fadeIn escalonado
+        $lista.append($(crearTarjetaLibro(libros[i])).hide().fadeIn(300 + i * 80));
     }
 }
 
-/* ─────────────────────────────────────────
-   BÚSQUEDA EN TIEMPO REAL
-   Filtra el array con .filter() y
-   actualiza la lista sin recargar
-───────────────────────────────────────── */
+// ── CARGAR LIBROS DESDE LA BD (AJAX) ────────────────
+function cargarLibros(termino) {
+    const url = termino
+        ? `${API}/libros?termino=${encodeURIComponent(termino)}`
+        : `${API}/libros`;
 
-/**
- * Filtra el catálogo por término de búsqueda.
- * Busca en título, autor e ISBN.
- * @param {string} termino
- * @returns {Libro[]}
- */
-function buscarLibros(termino) {
-    const t = termino.toLowerCase().trim();
-    if (t === "") return catalogoLibros;
-
-    return catalogoLibros.filter(libro =>
-        libro.titulo.toLowerCase().includes(t) ||
-        libro.autor.toLowerCase().includes(t)  ||
-        libro.isbn.includes(t)                 ||
-        libro.genero.toLowerCase().includes(t)
-    );
+    $.ajax({
+        url:     url,
+        method:  'GET',
+        success: function(res) {
+            if (res.ok) {
+                renderizarLibros(res.libros);
+                $("#contadorResultados").text(
+                    termino
+                        ? `${res.libros.length} resultado(s) encontrado(s)`
+                        : `${res.libros.length} libros en catálogo`
+                );
+            }
+        },
+        error: function(err) {
+            console.error('Error cargando libros:', err);
+            $("#bookList").html('<p class="sin-resultados">Error conectando al servidor.</p>');
+        }
+    });
 }
 
-/* ─────────────────────────────────────────
-   MODAL DE PRÉSTAMO
-   Muestra un formulario dinámico para
-   registrar el préstamo sin recargar
-───────────────────────────────────────── */
-
-/**
- * Abre el modal de préstamo para un libro.
- * @param {string} isbn
- */
+// ── MODAL DE PRÉSTAMO ────────────────────────────────
 function abrirModalPrestamo(isbn) {
-    const libro = catalogoLibros.find(l => l.isbn === isbn);
-    if (!libro) return;
-
-    $("#modalPrestamoTitulo").text(libro.titulo);
-    $("#modalPrestamoISBN").val(libro.isbn);
-    $("#modalPrestamo").fadeIn(200);
+    $.ajax({
+        url:     `${API}/libros`,
+        method:  'GET',
+        success: function(res) {
+            const libro = res.libros.find(l => l.isbn === isbn);
+            if (!libro) return;
+            $("#modalPrestamoTitulo").text(libro.titulo);
+            $("#modalPrestamoISBN").val(libro.isbn);
+            $("#modalPrestamo").fadeIn(200);
+        }
+    });
 }
 
-/**
- * Cierra el modal de préstamo.
- */
 function cerrarModalPrestamo() {
     $("#modalPrestamo").fadeOut(200);
-    $("#formPrestamo")[0].reset();
-    $(".modal-field-error").text("");
+    $("#inputMatriculaPrestamo").val('');
+    $("#errorMatriculaPrestamo").text('');
 }
 
-/**
- * Confirma el préstamo y actualiza las copias.
- * @param {string} isbn
- * @param {string} matricula
- */
+// ── CONFIRMAR PRÉSTAMO (AJAX → BD) ───────────────────
 function confirmarPrestamo(isbn, matricula) {
-    const libro = catalogoLibros.find(l => l.isbn === isbn);
-    if (!libro || libro.copias === 0) return;
-
-    libro.copias--;
-
-    cerrarModalPrestamo();
-
-    // Mensaje de éxito con fadeIn/fadeOut
-    $("#mensajeExito")
-        .text(`¡Préstamo registrado! "${libro.titulo}" — Mat. ${matricula}`)
-        .fadeIn(300)
-        .delay(3500)
-        .fadeOut(400);
-
-    // Re-renderizar con los datos actualizados
-    const terminoActual = $("#inputBuscar").val();
-    renderizarLibros(buscarLibros(terminoActual));
+    $.ajax({
+        url:         `${API}/prestamos`,
+        method:      'POST',
+        contentType: 'application/json',
+        data:        JSON.stringify({ isbn, matricula }),
+        success: function(res) {
+            cerrarModalPrestamo();
+            $("#mensajeExito")
+                .text(`✅ ${res.mensaje}`)
+                .fadeIn(300).delay(4000).fadeOut(400);
+            cargarLibros(); // recargar con datos actualizados de BD
+        },
+        error: function(err) {
+            const msg = err.responseJSON ? err.responseJSON.mensaje : 'Error al registrar préstamo';
+            $("#errorMatriculaPrestamo").text(msg);
+        }
+    });
 }
 
-/* ─────────────────────────────────────────
-   INICIO — jQuery document ready
-───────────────────────────────────────── */
+// ── GUARDAR LIBRO EN BD (Alta) ───────────────────────
+function guardarLibro(datos) {
+    $.ajax({
+        url:         `${API}/libros`,
+        method:      'POST',
+        contentType: 'application/json',
+        data:        JSON.stringify(datos),
+        success: function(res) {
+            $("#mensajeFormulario")
+                .text('✅ Libro guardado correctamente en la base de datos.')
+                .removeClass('msg-error').addClass('msg-exito')
+                .slideDown(200).delay(3000).slideUp(300);
+        },
+        error: function(err) {
+            const msg = err.responseJSON ? err.responseJSON.mensaje : 'Error al guardar';
+            $("#mensajeFormulario")
+                .text('❌ ' + msg)
+                .removeClass('msg-exito').addClass('msg-error')
+                .slideDown(200);
+        }
+    });
+}
+
+// ── MODIFICAR LIBRO EN BD ────────────────────────────
+function modificarLibro(id, datos) {
+    $.ajax({
+        url:         `${API}/libros/${id}`,
+        method:      'PUT',
+        contentType: 'application/json',
+        data:        JSON.stringify(datos),
+        success: function(res) {
+            $("#mensajeFormulario")
+                .text('✅ Libro actualizado correctamente.')
+                .removeClass('msg-error').addClass('msg-exito')
+                .slideDown(200).delay(3000).slideUp(300);
+        },
+        error: function(err) {
+            const msg = err.responseJSON ? err.responseJSON.mensaje : 'Error al actualizar';
+            $("#mensajeFormulario")
+                .text('❌ ' + msg)
+                .removeClass('msg-exito').addClass('msg-error')
+                .slideDown(200);
+        }
+    });
+}
+
+// ── ELIMINAR LIBRO EN BD ─────────────────────────────
+function eliminarLibro(isbn) {
+    $.ajax({
+        url:    `${API}/libros`,
+        method: 'GET',
+        success: function(res) {
+            const libro = res.libros.find(l => l.isbn === isbn);
+            if (!libro) {
+                $("#mensajeFormulario")
+                    .text('❌ No se encontró un libro con ese ISBN.')
+                    .removeClass('msg-exito').addClass('msg-error')
+                    .slideDown(200);
+                return;
+            }
+
+            $.ajax({
+                url:    `${API}/libros/${libro.id}`,
+                method: 'DELETE',
+                success: function() {
+                    $("#mensajeFormulario")
+                        .text('✅ Libro eliminado correctamente.')
+                        .removeClass('msg-error').addClass('msg-exito')
+                        .slideDown(200).delay(3000).slideUp(300);
+                },
+                error: function(err) {
+                    const msg = err.responseJSON ? err.responseJSON.mensaje : 'Error al eliminar';
+                    $("#mensajeFormulario")
+                        .text('❌ ' + msg)
+                        .removeClass('msg-exito').addClass('msg-error')
+                        .slideDown(200);
+                }
+            });
+        }
+    });
+}
+
+// ── JQUERY DOCUMENT READY ────────────────────────────
 $(function () {
 
-    /* ── Búsqueda en tiempo real (index + préstamos) ── */
+    // Búsqueda en tiempo real — AJAX al backend
     $("#inputBuscar, #inputBuscarPrestamos").on("input", function () {
-        const termino   = $(this).val();
-        const resultados = buscarLibros(termino);
-
-        // Contador de resultados
-        $("#contadorResultados").text(
-            termino.trim() === ""
-                ? `${catalogoLibros.length} libros en catálogo`
-                : `${resultados.length} resultado(s) encontrado(s)`
-        );
-
-        renderizarLibros(resultados);
+        cargarLibros($(this).val().trim());
     });
 
-    /* ── Botón BUSCAR (index) — también filtra ── */
+    // Botón BUSCAR
     $("#btnBuscar").on("click", function () {
-        const termino    = $("#inputBuscar").val();
-        const resultados = buscarLibros(termino);
-        renderizarLibros(resultados);
-
-        // Efecto en el botón
+        cargarLibros($("#inputBuscar").val().trim());
         $(this).addClass("btn-clicked");
         setTimeout(() => $(this).removeClass("btn-clicked"), 300);
     });
 
-    /* ── Botón PRESTAR — abre modal ── */
+    // Botón PRESTAR
     $(document).on("click", ".btn-prestar", function () {
-        const isbn = $(this).data("isbn");
-        abrirModalPrestamo(isbn);
+        abrirModalPrestamo($(this).data("isbn"));
     });
 
-    /* ── Confirmar dentro del modal de préstamo ── */
+    // Confirmar préstamo
     $("#btnConfirmarPrestamo").on("click", function () {
         const isbn      = $("#modalPrestamoISBN").val();
         const matricula = $("#inputMatriculaPrestamo").val().trim();
-
         if (!matricula) {
             $("#errorMatriculaPrestamo").text("La matrícula es obligatoria.");
             return;
         }
-
-        $("#errorMatriculaPrestamo").text("");
+        $("#errorMatriculaPrestamo").text('');
         confirmarPrestamo(isbn, matricula);
     });
 
-    /* ── Cerrar modal de préstamo ── */
+    // Cerrar modal préstamo
     $("#btnCerrarModalPrestamo, #modalPrestamo").on("click", function (e) {
         if (e.target === this) cerrarModalPrestamo();
     });
 
-    /* ── Hover animado en botones .btn ── */
-    $(document).on("mouseenter", ".btn", function () {
+    // Formulario ALTA — guardar en BD
+    if ($("#formLibro").length && window.location.href.includes('alta')) {
+        $("#formLibro").on("submit", function (e) {
+            e.preventDefault();
+            const esValido = validarFormularioLibro("formLibro");
+            if (esValido) {
+                guardarLibro({
+                    titulo:      $("#titulo").val(),
+                    autor:       $("#autor").val(),
+                    isbn:        $("#isbn").val(),
+                    editorial:   $("#editorial").val(),
+                    anio:        $("#anio").val(),
+                    genero:      $("#genero").val(),
+                    copias:      $("#copias").val(),
+                    descripcion: $("#descripcion").val()
+                });
+            }
+        });
+    }
+
+    // Formulario MODIFICAR — buscar y actualizar en BD
+    if ($("#btnBuscarISBN").length) {
+        $("#btnBuscarISBN").on("click", function () {
+            const isbn = $("#isbnBuscar").val().trim();
+            $.ajax({
+                url:    `${API}/libros`,
+                method: 'GET',
+                success: function(res) {
+                    const libro = res.libros.find(l => l.isbn === isbn);
+                    if (libro) {
+                        $("#titulo").val(libro.titulo);
+                        $("#autor").val(libro.autor);
+                        $("#isbn").val(libro.isbn);
+                        $("#editorial").val(libro.editorial);
+                        $("#anio").val(libro.anio);
+                        $("#genero").val(libro.genero);
+                        $("#copias").val(libro.copias);
+                        $("#descripcion").val(libro.descripcion);
+                        $("#formLibro").data("libro-id", libro.id).slideDown(300);
+                    } else {
+                        alert("No se encontró un libro con ese ISBN.");
+                    }
+                }
+            });
+        });
+
+        $("#formLibro").on("submit", function (e) {
+            e.preventDefault();
+            const esValido = validarFormularioLibro("formLibro");
+            if (esValido) {
+                modificarLibro($(this).data("libro-id"), {
+                    titulo:      $("#titulo").val(),
+                    autor:       $("#autor").val(),
+                    isbn:        $("#isbn").val(),
+                    editorial:   $("#editorial").val(),
+                    anio:        $("#anio").val(),
+                    genero:      $("#genero").val(),
+                    copias:      $("#copias").val(),
+                    descripcion: $("#descripcion").val()
+                });
+            }
+        });
+    }
+
+    // Formulario ELIMINAR — borrar de BD
+    if ($("#formEliminar").length) {
+        $("#formEliminar").on("submit", function (e) {
+            e.preventDefault();
+            const esValido = validarISBN("isbnEliminar");
+            if (esValido) {
+                eliminarLibro($("#isbnEliminar").val().trim());
+            }
+        });
+    }
+
+    // Hover animado
+    $(document).on("mouseenter", ".btn:not(:disabled)", function () {
         $(this).stop(true).animate({ opacity: 0.85 }, 120);
-    }).on("mouseleave", ".btn", function () {
+    }).on("mouseleave", ".btn:not(:disabled)", function () {
         $(this).stop(true).animate({ opacity: 1 }, 120);
     });
 
-    /* ── Renderizado inicial si existe el contenedor ── */
+    // Cargar libros al iniciar si existe el contenedor
     if ($("#bookList").length) {
-        renderizarLibros(catalogoLibros);
-        $("#contadorResultados").text(`${catalogoLibros.length} libros en catálogo`);
+        cargarLibros();
     }
 });
