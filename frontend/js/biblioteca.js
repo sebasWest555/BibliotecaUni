@@ -4,7 +4,6 @@
    Usa AJAX (jQuery) para consumir la API REST
 ══════════════════════════════════════════════════════ */
 
-const API = 'http://localhost:3000/api';
 
 // ── RENDERIZADO DE LIBROS ────────────────────────────
 function crearTarjetaLibro(libro) {

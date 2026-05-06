@@ -3,7 +3,7 @@
    Se incluye en TODAS las páginas
 ══════════════════════════════════════════════════════ */
 
-const API = 'http://localhost:3000/api';
+const API = 'https://localhost:3443/api';
 
 // ── ESTADO DE SESIÓN ─────────────────────────────────
 let sesionActual = null;
@@ -64,11 +64,11 @@ function restaurarVista() {
 // ── LOGIN ────────────────────────────────────────────
 function login(email, password) {
     $.ajax({
-        url:         `${API}/usuarios/login`,
-        method:      'POST',
+        url: `${API}/usuarios/login`,
+        method: 'POST',
         contentType: 'application/json',
-        data:        JSON.stringify({ email, password }),
-        success: function(res) {
+        data: JSON.stringify({ email, password }),
+        success: function (res) {
             if (res.ok) {
                 guardarSesion(res.usuario, res.token);
                 cerrarModalLogin();
@@ -76,7 +76,7 @@ function login(email, password) {
                 mostrarToast(`✅ Bienvenido ${res.usuario.nombre}`, 'exito');
             }
         },
-        error: function(err) {
+        error: function (err) {
             const msg = err.responseJSON ? err.responseJSON.mensaje : 'Error al iniciar sesión';
             $("#errorLogin").text(msg).show();
         }
@@ -86,9 +86,9 @@ function login(email, password) {
 // ── LOGOUT ───────────────────────────────────────────
 function cerrarSesion() {
     $.ajax({
-        url:    `${API}/usuarios/logout`,
+        url: `${API}/usuarios/logout`,
         method: 'POST',
-        complete: function() {
+        complete: function () {
             cerrarSesionLocal();
             restaurarVista();
             mostrarToast('Sesión cerrada correctamente');
@@ -100,8 +100,9 @@ function cerrarSesion() {
 
 // ── MODAL LOGIN ──────────────────────────────────────
 function cerrarModalLogin() {
-    $("#modalLogin").fadeOut(200);
-    $("#loginEmail, #loginPassword").val('');
+    $("#modalLogin").fadeOut(200, function () {
+        $(this).removeClass("activo");
+    }); $("#loginEmail, #loginPassword").val('');
     $("#errorLogin").hide().text('');
 }
 
@@ -130,7 +131,7 @@ $(function () {
 
     // Abrir modal login
     $(document).on("click", "#btnAbrirLogin", function () {
-        $("#modalLogin").fadeIn(200);
+        $("#modalLogin").addClass("activo").hide().fadeIn(200);
     });
 
     // Cerrar modal
@@ -144,7 +145,7 @@ $(function () {
 
     // Confirmar login con botón
     $(document).on("click", "#btnConfirmarLogin", function () {
-        const email    = $("#loginEmail").val().trim();
+        const email = $("#loginEmail").val().trim();
         const password = $("#loginPassword").val().trim();
         if (!email || !password) {
             $("#errorLogin").text("Completa todos los campos.").show();
