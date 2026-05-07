@@ -8,11 +8,6 @@
    HELPERS DE VALIDACIÓN
 ───────────────────────────────────────── */
 
-/**
- * Muestra un mensaje de error en rojo bajo el campo.
- * @param {string} campoId  - ID del input
- * @param {string} mensaje  - Texto del error
- */
 function mostrarError(campoId, mensaje) {
     $("#" + campoId)
         .addClass("input-invalido")
@@ -24,10 +19,6 @@ function mostrarError(campoId, mensaje) {
         .slideDown(150);
 }
 
-/**
- * Muestra un mensaje de éxito en verde bajo el campo.
- * @param {string} campoId
- */
 function mostrarExito(campoId) {
     $("#" + campoId)
         .addClass("input-valido")
@@ -39,10 +30,6 @@ function mostrarExito(campoId) {
         .slideDown(150);
 }
 
-/**
- * Limpia el estado visual de un campo.
- * @param {string} campoId
- */
 function limpiarCampo(campoId) {
     $("#" + campoId).removeClass("input-valido input-invalido");
     $("#error-" + campoId).text("").hide();
@@ -52,12 +39,6 @@ function limpiarCampo(campoId) {
    REGLAS DE VALIDACIÓN
 ───────────────────────────────────────── */
 
-/**
- * Valida que un campo no esté vacío.
- * @param {string} campoId
- * @param {string} etiqueta - Nombre legible del campo
- * @returns {boolean}
- */
 function validarRequerido(campoId, etiqueta) {
     const valor = $("#" + campoId).val().trim();
     if (valor === "") {
@@ -68,11 +49,6 @@ function validarRequerido(campoId, etiqueta) {
     return true;
 }
 
-/**
- * Valida que el ISBN tenga 10 o 13 dígitos numéricos.
- * @param {string} campoId
- * @returns {boolean}
- */
 function validarISBN(campoId) {
     const valor = $("#" + campoId).val().trim();
     if (valor === "") {
@@ -87,13 +63,8 @@ function validarISBN(campoId) {
     return true;
 }
 
-/**
- * Valida que el año esté entre 1000 y el año actual.
- * @param {string} campoId
- * @returns {boolean}
- */
 function validarAnio(campoId) {
-    const valor     = parseInt($("#" + campoId).val());
+    const valor      = parseInt($("#" + campoId).val());
     const anioActual = new Date().getFullYear();
     if (isNaN(valor)) {
         mostrarError(campoId, "Ingresa un año válido.");
@@ -107,11 +78,6 @@ function validarAnio(campoId) {
     return true;
 }
 
-/**
- * Valida que las copias sean un número mayor a 0.
- * @param {string} campoId
- * @returns {boolean}
- */
 function validarCopias(campoId) {
     const valor = parseInt($("#" + campoId).val());
     if (isNaN(valor) || valor < 1) {
@@ -122,11 +88,6 @@ function validarCopias(campoId) {
     return true;
 }
 
-/**
- * Valida que la matrícula no esté vacía y tenga formato básico.
- * @param {string} campoId
- * @returns {boolean}
- */
 function validarMatricula(campoId) {
     const valor = $("#" + campoId).val().trim();
     if (valor === "") {
@@ -143,13 +104,8 @@ function validarMatricula(campoId) {
 
 /* ─────────────────────────────────────────
    CONTROL DEL BOTÓN SUBMIT
-   Se deshabilita si hay errores
 ───────────────────────────────────────── */
 
-/**
- * Revisa si hay campos con error y habilita/deshabilita el submit.
- * @param {string} formId - ID del formulario
- */
 function actualizarBotonSubmit(formId) {
     const hayErrores = $("#" + formId + " .input-invalido").length > 0;
     const $btn = $("#" + formId + " [type='submit']");
@@ -160,17 +116,12 @@ function actualizarBotonSubmit(formId) {
     }
 }
 
-/* ─────────────────────────────────────────
-   VALIDACIÓN COMPLETA DE FORMULARIO DE LIBRO
-   Usada en alta.html y modificar.html
-───────────────────────────────────────── */
 function validarFormularioLibro(formId) {
-    const r1 = validarRequerido("titulo",    "Título");
-    const r2 = validarRequerido("autor",     "Autor");
+    const r1 = validarRequerido("titulo", "Título");
+    const r2 = validarRequerido("autor",  "Autor");
     const r3 = validarISBN("isbn");
     const r4 = validarAnio("anio");
     const r5 = validarCopias("copias");
-
     actualizarBotonSubmit(formId);
     return r1 && r2 && r3 && r4 && r5;
 }
@@ -183,35 +134,18 @@ $(function () {
     /* ══ FORMULARIO ALTA / MODIFICAR ══ */
     if ($("#formLibro").length) {
 
-        // Validar en tiempo real al salir de cada campo (blur)
-        $("#titulo").on("blur", function ()  { validarRequerido("titulo", "Título");   actualizarBotonSubmit("formLibro"); });
-        $("#autor").on("blur", function ()   { validarRequerido("autor",  "Autor");    actualizarBotonSubmit("formLibro"); });
-        $("#isbn").on("blur", function ()    { validarISBN("isbn");                    actualizarBotonSubmit("formLibro"); });
-        $("#anio").on("blur", function ()    { validarAnio("anio");                    actualizarBotonSubmit("formLibro"); });
-        $("#copias").on("blur", function ()  { validarCopias("copias");                actualizarBotonSubmit("formLibro"); });
+        // Validar en tiempo real al salir de cada campo
+        $("#titulo").on("blur", function () { validarRequerido("titulo", "Título"); actualizarBotonSubmit("formLibro"); });
+        $("#autor").on("blur",  function () { validarRequerido("autor",  "Autor");  actualizarBotonSubmit("formLibro"); });
+        $("#isbn").on("blur",   function () { validarISBN("isbn");                  actualizarBotonSubmit("formLibro"); });
+        $("#anio").on("blur",   function () { validarAnio("anio");                  actualizarBotonSubmit("formLibro"); });
+        $("#copias").on("blur", function () { validarCopias("copias");              actualizarBotonSubmit("formLibro"); });
 
-        // También validar mientras el usuario escribe en ISBN y año
-        $("#isbn").on("input", function ()   { if ($(this).val().length >= 10) { validarISBN("isbn");  actualizarBotonSubmit("formLibro"); } });
-        $("#anio").on("input", function ()   { if ($(this).val().length === 4) { validarAnio("anio");  actualizarBotonSubmit("formLibro"); } });
+        $("#isbn").on("input", function () { if ($(this).val().length >= 10) { validarISBN("isbn"); actualizarBotonSubmit("formLibro"); } });
+        $("#anio").on("input", function () { if ($(this).val().length === 4) { validarAnio("anio"); actualizarBotonSubmit("formLibro"); } });
 
-        // Interceptar submit
-        $("#formLibro").on("submit", function (e) {
-            e.preventDefault();
-            const esValido = validarFormularioLibro("formLibro");
-            if (esValido) {
-                // Éxito visual
-                $("#mensajeFormulario")
-                    .text("✓ Libro guardado correctamente.")
-                    .removeClass("msg-error")
-                    .addClass("msg-exito")
-                    .slideDown(200)
-                    .delay(3000)
-                    .slideUp(300);
-                $(this)[0].reset();
-                $(".campo-exito, .campo-error").text("").hide();
-                $(".input-valido, .input-invalido").removeClass("input-valido input-invalido");
-            }
-        });
+        // ── Submit manejado por biblioteca.js ──
+        // validaciones.js solo valida los campos, biblioteca.js hace el POST al backend
     }
 
     /* ══ FORMULARIO ELIMINAR ══ */
@@ -222,27 +156,13 @@ $(function () {
             actualizarBotonSubmit("formEliminar");
         });
 
-        $("#formEliminar").on("submit", function (e) {
-            e.preventDefault();
-            const esValido = validarISBN("isbnEliminar");
-            if (esValido) {
-                $("#mensajeFormulario")
-                    .text("✓ Libro eliminado correctamente.")
-                    .removeClass("msg-error")
-                    .addClass("msg-exito")
-                    .slideDown(200)
-                    .delay(3000)
-                    .slideUp(300);
-                $(this)[0].reset();
-                limpiarCampo("isbnEliminar");
-            }
-        });
+        // ── Submit manejado por biblioteca.js ──
     }
 
     /* ══ FORMULARIO DEVOLUCIONES ══ */
     if ($("#formDevolucion").length) {
 
-        $("#isbnDevolucion").on("blur", function ()    { validarISBN("isbnDevolucion");         actualizarBotonSubmit("formDevolucion"); });
+        $("#isbnDevolucion").on("blur",    function () { validarISBN("isbnDevolucion");          actualizarBotonSubmit("formDevolucion"); });
         $("#matriculaDevolucion").on("blur", function () { validarMatricula("matriculaDevolucion"); actualizarBotonSubmit("formDevolucion"); });
 
         $("#formDevolucion").on("submit", function (e) {
@@ -270,4 +190,5 @@ $(function () {
     }).on("mouseleave", ".btn:not(:disabled)", function () {
         $(this).stop(true).animate({ opacity: 1 }, 100);
     });
+
 });
