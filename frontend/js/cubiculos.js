@@ -34,16 +34,31 @@ function PersonaCola(nombre, matricula, duracion) {
 ───────────────────────────────────────── */
 const _ahora = Date.now();
 
-const cubiculos = [
-    new Cubiculo(1, "Cubículo 1", 2, true,  "Carlos Mendoza",  "A010201", _ahora - 45 * 60000, 60),
-    new Cubiculo(2, "Cubículo 2", 4, true,  "Sofía Ramírez",   "A030405", _ahora - 55 * 60000, 60),
-    new Cubiculo(3, "Cubículo 3", 2, false, null, null, null, null),
-    new Cubiculo(4, "Cubículo 4", 6, true,  "Grupo: Ing. 4°B", "Grupo",   _ahora - 30 * 60000, 120),
-    new Cubiculo(5, "Cubículo 5", 2, false, null, null, null, null),
-    new Cubiculo(6, "Cubículo 6", 4, true,  "Luis Herrera",    "A078901", _ahora - 10 * 60000, 90),
-    new Cubiculo(7, "Cubículo 7", 2, false, null, null, null, null),
-    new Cubiculo(8, "Cubículo 8", 4, false, null, null, null, null),
-];
+let cubiculos = [];
+
+function cargarCubiculos() {
+    if (typeof API === 'undefined') return;
+    $.ajax({
+        url: `${API}/cubiculos`,
+        method: 'GET',
+        success: function(res) {
+            if (res.ok) {
+                cubiculos = res.cubiculos.map(function(c) {
+                    const ocupado = c.estado_reserva === 'activa';
+                    const inicio = c.inicio ? new Date(c.inicio).getTime() : null;
+                    const fin = c.fin ? new Date(c.fin).getTime() : null;
+                    const duracion = (inicio && fin) ? (fin - inicio) / 60000 : null;
+                    return new Cubiculo(c.id, c.nombre, c.capacidad, ocupado, c.ocupante, c.matricula, inicio, duracion);
+                });
+                renderGrid();
+            }
+        },
+        error: function(err) {
+            console.error("Error al cargar cubículos", err);
+            mostrarToast("Error conectando al servidor.", "error");
+        }
+    });
+}
 
 const cola = [
     new PersonaCola("María López",    "A099001", 60),
@@ -363,7 +378,7 @@ function tick() {
 ───────────────────────────────────────── */
 $(function () {
 
-    renderGrid();
+    cargarCubiculos();
     renderCola();
     actualizarReloj();
 

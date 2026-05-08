@@ -74,11 +74,14 @@ router.post('/', async (req, res) => {
             });
         }
 
+        const anioInt = anio ? parseInt(anio, 10) : null;
+        const copiasInt = copias ? parseInt(copias, 10) : 1;
+
         const resultado = await db.query(
             `INSERT INTO libros (titulo, autor, isbn, editorial, anio, genero, copias, descripcion)
              VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
              RETURNING *`,
-            [titulo, autor, isbn, editorial, anio || null, genero, copias || 1, descripcion]
+            [titulo, autor, isbn, editorial, anioInt, genero, copiasInt, descripcion]
         );
 
         res.status(201).json({ ok: true, libro: resultado.rows[0] });
@@ -97,13 +100,16 @@ router.put('/:id', async (req, res) => {
     try {
         const { titulo, autor, isbn, editorial, anio, genero, copias, descripcion } = req.body;
 
+        const anioInt = anio ? parseInt(anio, 10) : null;
+        const copiasInt = copias ? parseInt(copias, 10) : 1;
+
         const resultado = await db.query(
             `UPDATE libros 
              SET titulo=$1, autor=$2, isbn=$3, editorial=$4, 
                  anio=$5, genero=$6, copias=$7, descripcion=$8
              WHERE id=$9
              RETURNING *`,
-            [titulo, autor, isbn, editorial, anio, genero, copias, descripcion, req.params.id]
+            [titulo, autor, isbn, editorial, anioInt, genero, copiasInt, descripcion, req.params.id]
         );
 
         if (resultado.rows.length === 0) {

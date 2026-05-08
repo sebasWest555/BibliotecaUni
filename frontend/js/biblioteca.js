@@ -203,7 +203,7 @@ $(function () {
 
     // Botón PRESTAR
     $(document).on("click", ".btn-prestar", function () {
-        abrirModalPrestamo($(this).data("isbn"));
+        abrirModalPrestamo($(this).attr("data-isbn"));
     });
 
     // Confirmar préstamo
