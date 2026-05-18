@@ -3,7 +3,10 @@
    Se incluye en TODAS las páginas
 ══════════════════════════════════════════════════════ */
 
-const API = 'https://localhost:3443/api';
+// API dinámico: usa el mismo origen donde corre el frontend.
+// Local → https://localhost:3443/api
+// Azure → https://biblioteca-donda.azurewebsites.net/api
+const API = window.location.origin + '/api';
 
 // ── ESTADO DE SESIÓN ─────────────────────────────────
 let sesionActual = null;
@@ -26,11 +29,9 @@ function cerrarSesionLocal() {
 // ── CONTROL DE VISIBILIDAD POR ROL ───────────────────
 function aplicarRol(rol) {
     if (rol === 'admin') {
-        // Mostrar opciones de admin en sidebar
         $(".solo-admin").show();
         $(".solo-alumno").hide();
 
-        // Cambiar botón del header
         const nombre = sesionActual.usuario.nombre;
         $("#headerAdmin").html(`
             <div class="admin-badge">
@@ -39,13 +40,11 @@ function aplicarRol(rol) {
             </div>
         `);
 
-        // Evento cerrar sesión
         $("#btnCerrarSesion").on("click", function () {
             cerrarSesion();
         });
 
     } else {
-        // Alumno — ocultar opciones de admin
         $(".solo-admin").hide();
         $(".solo-alumno").show();
     }
@@ -92,7 +91,6 @@ function cerrarSesion() {
             cerrarSesionLocal();
             restaurarVista();
             mostrarToast('Sesión cerrada correctamente');
-            // Recargar para limpiar estado
             setTimeout(() => location.reload(), 1000);
         }
     });
@@ -102,7 +100,8 @@ function cerrarSesion() {
 function cerrarModalLogin() {
     $("#modalLogin").fadeOut(200, function () {
         $(this).removeClass("activo");
-    }); $("#loginEmail, #loginPassword").val('');
+    });
+    $("#loginEmail, #loginPassword").val('');
     $("#errorLogin").hide().text('');
 }
 
@@ -120,7 +119,6 @@ function mostrarToast(msg, tipo) {
 // ── INICIALIZAR AL CARGAR PÁGINA ─────────────────────
 $(function () {
 
-    // Verificar si hay sesión guardada
     const sesion = obtenerSesion();
     if (sesion) {
         sesionActual = sesion;
@@ -129,12 +127,10 @@ $(function () {
         restaurarVista();
     }
 
-    // Abrir modal login
     $(document).on("click", "#btnAbrirLogin", function () {
         $("#modalLogin").addClass("activo").hide().fadeIn(200);
     });
 
-    // Cerrar modal
     $(document).on("click", "#btnCerrarLogin", function () {
         cerrarModalLogin();
     });
@@ -143,7 +139,6 @@ $(function () {
         if ($(e.target).is("#modalLogin")) cerrarModalLogin();
     });
 
-    // Confirmar login con botón
     $(document).on("click", "#btnConfirmarLogin", function () {
         const email = $("#loginEmail").val().trim();
         const password = $("#loginPassword").val().trim();
@@ -154,7 +149,6 @@ $(function () {
         login(email, password);
     });
 
-    // Login con Enter
     $(document).on("keypress", "#loginPassword", function (e) {
         if (e.which === 13) $("#btnConfirmarLogin").click();
     });

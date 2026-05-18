@@ -1,26 +1,37 @@
-# Ignore macOS system files
+# ── Sistema operativo ───────────────────────────────
 .DS_Store
+Thumbs.db
 
-# Node modules (if any projects use Node)
+# ── Dependencias ────────────────────────────────────
 node_modules/
-
-# Python virtualenv
 venv/
 
-# Logs and temporary files
+# ── Variables de entorno (¡NUNCA subir!) ────────────
+.env
+.env.local
+.env.production
+.env.*.local
+
+# ── Certificados SSL (solo locales, Azure usa los suyos) ──
+backend/certs/*.pem
+backend/certs/*.key
+backend/certs/*.crt
+*.pem
+*.key
+
+# ── Logs y temporales ───────────────────────────────
 *.log
 *.tmp
+npm-debug.log*
 
-# Build artifacts
+# ── Build artifacts ─────────────────────────────────
 dist/
 build/
 
-# IDE/editor folders
+# ── IDE / editores ──────────────────────────────────
 .vscode/
 .idea/
-
-# Other common ignores
 *.swp
 
-#variables de entorno
-backend/.env
+# ── Otros ───────────────────────────────────────────
+*.zip
